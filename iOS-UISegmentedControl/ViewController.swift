@@ -10,24 +10,53 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var containerView: UIView!
+    weak var currentViewController: UIViewController?
+    
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
+        currentViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ComponentA")
+        currentViewController?.view.translatesAutoresizingMaskIntoConstraints = false
+        self.addChildViewController(self.currentViewController!)
+        self.addSubview(self.currentViewController!.view, toView: self.containerView)
+        
+        super.viewDidLoad()
 
     }
+    
+    //  Helper method to add a sub view to another view and constrain it with auto layout
+    func addSubview(subView:UIView, toView parentView:UIView) {
+        parentView.addSubview(subView)
+        
+        var viewBindingsDict = [String:AnyObject]()
+        viewBindingsDict["subView"] = subView
+        parentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[subView]|", options: [], metrics: nil, views: viewBindingsDict))
+        parentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[subView]|", options: [], metrics: nil, views: viewBindingsDict))
+    }
+    
+    
 
     @IBAction func segmentControlValueChanged(sender: UISegmentedControl) {
         
         switch sender.selectedSegmentIndex {
         case 0:
-            label.text = "selectedSegmentIndex: \(sender.selectedSegmentIndex)"
+            let newViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ComponentA")
+            newViewController!.view.translatesAutoresizingMaskIntoConstraints = false
+            self.cycleFromViewController(self.currentViewController!, toViewController: newViewController!)
+            self.currentViewController = newViewController
+            
+            print("case 0")
         case 1:
-            label.text = "selectedSegmentIndex: \(sender.selectedSegmentIndex)"
+            let newViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ComponentB")
+            newViewController!.view.translatesAutoresizingMaskIntoConstraints = false
+            self.cycleFromViewController(self.currentViewController!, toViewController: newViewController!)
+            self.currentViewController = newViewController
+            
+            print("case 1")
+
         default:
             break
         }
@@ -36,10 +65,28 @@ class ViewController: UIViewController {
         
     }
     
+    func cycleFromViewController(oldViewController:UIViewController, toViewController newViewController:UIViewController) {
+        
+        oldViewController.willMoveToParentViewController(nil)
+        self.addChildViewController(newViewController)
+        self.addSubview(newViewController.view, toView: self.containerView)
+        newViewController.view.alpha = 0
+        newViewController.view.layoutIfNeeded()
+        UIView.animateWithDuration(0.5, animations: {
+            newViewController.view.alpha = 1
+            oldViewController.view.alpha = 0
+            }) { (finished) in
+                oldViewController.view.removeFromSuperview()
+                oldViewController.removeFromParentViewController()
+                newViewController.didMoveToParentViewController(self)
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
+        print ("\(self) - didReceiveMemoryWarning")
     }
 
 
