@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MfA-Hg-HFZ">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="skJ-2R-bZP">
+            <objects>
+                <viewController id="CCP-C9-v8r" customClass="ViewController" customModule="iOS_UISegmentedControl" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8p8-4N-867"/>
+                        <viewControllerLayoutGuide type="bottom" id="mth-kK-iWL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gO9-nb-wWi">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEe-MG-MvE">
+                                <rect key="frame" x="279" y="289" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bEe-MG-MvE" firstAttribute="top" secondItem="8p8-4N-867" secondAttribute="bottom" constant="225" id="KUT-M8-hP4"/>
+                            <constraint firstItem="bEe-MG-MvE" firstAttribute="centerX" secondItem="gO9-nb-wWi" secondAttribute="centerX" id="sZ4-Tc-ej4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="RaE-vP-NWa">
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="ETr-bs-fOk">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Practice Test"/>
+                                <segment title="Videos"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentControlValueChanged:" destination="CCP-C9-v8r" eventType="valueChanged" id="SHw-e0-nUC"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="label" destination="bEe-MG-MvE" id="CNa-Ql-k6W"/>
+                        <outlet property="segmentControl" destination="ETr-bs-fOk" id="tj7-mW-ze3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lIh-D3-QEK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1166" y="376"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="viO-wp-628">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WM0-In-0xk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MfA-Hg-HFZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bdE-n1-dMF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="CCP-C9-v8r" kind="relationship" relationship="rootViewController" id="KSX-s0-Ffx"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="354" y="376"/>
+        </scene>
+    </scenes>
+</document>
